@@ -29,7 +29,7 @@ URI_UPLOAD = '/upload'
 URI_IMAGE = '/image'
 
 # WebRoot paths
-WEBROOT = r'C:\Users\tomer\Desktop\Python_Projects\WebRoot4.0\webroot.zip'
+WEBROOT = r'C:\Users\tomer\Desktop\Python_Projects\WebSite4+\webroot.zip'
 INDEX = os.path.join(WEBROOT, 'index.html')
 UPLOAD = r'C:\Users\tomer\Desktop\Python_Projects\WebSite4+\webroot.zip\upload'
 
