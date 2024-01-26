@@ -59,6 +59,7 @@ HTTP_TEMP_REDIRECT_302 = b'HTTP/1.1 302 TEMPORARY REDIRECT\r\n'
 HTTP_FORBIDDEN_403 = b'HTTP/1.1 403 Forbidden\r\n'
 HTTP_NOT_FOUND_404 = b'HTTP/1.1 404 Not Found\r\n'
 HTTP_INTERNAL_ERROR_500 = b'HTTP/1.1 500 Internal Server Error\r\n'
+HTTP_BAD_REQUEST_400 = b'HTTP/1.1 400 Bad Request\r\n'
 
 logging.basicConfig(filename='WebRoot_Server_log.log', level=logging.DEBUG)
 
@@ -73,6 +74,13 @@ def get_file_data(file_path):
         file_data = file.read()
         file_content_len = len(file_data)
     return file_data, file_content_len
+
+
+
+def bad_request(client_socket):
+    logging.debug('Bad Request has been activated')
+    client_socket.sendall(HTTP_BAD_REQUEST_400)
+    return
 
 
 def handle_client_request(resource, client_socket):
@@ -114,7 +122,8 @@ def handle_client_request(resource, client_socket):
             logging.debug('URI Calc Next has been requested')
             query_params = uri.split('?')[1]
             if not query_params[4:].isnumeric():
-                # Bad Request
+                bad_request(client_socket)
+                return
             num = int(query_params[4:])
             data = str(num + 1)
             data_len = len(data)
@@ -126,7 +135,8 @@ def handle_client_request(resource, client_socket):
             logging.debug('URI Calc Next has been requested')
             query_params = uri.split('?')[1]
             if not query_params.split('&')[0][7:].isnumeric() or not query_params.split('&')[1][6:].isnumeric():
-                # Bad Request
+                bad_request(client_socket)
+                return
             height = int(query_params.split('&')[0][7:])
             width = int(query_params.split('&')[1][6:])
             data = str(height * width / 2.0)
