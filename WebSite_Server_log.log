@@ -1,0 +1,246 @@
+DEBUG:root:Handling client request: /
+DEBUG:root:Handling client request: /css/doremon.css
+DEBUG:root:Handling client request: /imgs/abstract.jpg
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/jquery.min.js
+DEBUG:root:Handling client request: /imgs/favicon.ico
+ERROR:root:Socket Error
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/box.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/submit.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /
+DEBUG:root:Handling client request: /css/doremon.css
+DEBUG:root:Handling client request: /imgs/abstract.jpg
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/jquery.min.js
+DEBUG:root:Handling client request: /imgs/favicon.ico
+ERROR:root:Socket Error
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/box.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/submit.js
+DEBUG:root:Handling client request: /calculate-next?num=5
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /
+DEBUG:root:Handling client request: /js/jquery.min.js
+DEBUG:root:Handling client request: /js/box.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /css/doremon.css
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /imgs/abstract.jpg
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/submit.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /calculate-next?num=8
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /imgs/loading.gif
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /calculate-next?num=8
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /calculate-next?num=5
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /calculate-next?num=10
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /calculate-next?num=9
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /
+DEBUG:root:Handling client request: /imgs/abstract.jpg
+DEBUG:root:Handling client request: /js/submit.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/jquery.min.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/box.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /
+DEBUG:root:Handling client request: /css/doremon.css
+DEBUG:root:Handling client request: /js/submit.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/jquery.min.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/box.js
+DEBUG:root:Handling client request: /calculate-next?num=7
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /imgs/abstract.jpg
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /
+DEBUG:root:Handling client request: /css/doremon.css
+DEBUG:root:Handling client request: /js/submit.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/jquery.min.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/box.js
+DEBUG:root:Handling client request: /calculate-next?num=7
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /imgs/abstract.jpg
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /imgs/loading.gif
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /calculate-area?height=3&width=4
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /
+DEBUG:root:Handling client request: /css/doremon.css
+DEBUG:root:Handling client request: /js/submit.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/jquery.min.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/box.js
+DEBUG:root:Handling client request: /calculate-next?num=3
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /imgs/abstract.jpg
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /imgs/loading.gif
+DEBUG:root:Handling client request: /calculate-next?num=as
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Bad Request has been activated
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /calculate-area?height=3&width=a
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Bad Request has been activated
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /calculate-area?height=a&width=3
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Bad Request has been activated
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /calculate-area?height=5&width=3
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /
+DEBUG:root:Handling client request: /css/doremon.css
+DEBUG:root:Handling client request: /js/submit.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/jquery.min.js
+DEBUG:root:Handling client request: /imgs/favicon.ico
+ERROR:root:Socket Error
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/box.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /imgs/abstract.jpg
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /
+DEBUG:root:Handling client request: /js/jquery.min.js
+DEBUG:root:Handling client request: /css/doremon.css
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/box.js
+DEBUG:root:Handling client request: /imgs/favicon.ico
+ERROR:root:Socket Error
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/submit.js
+DEBUG:root:Handling client request: /calculate-next?num=5
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /imgs/abstract.jpg
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /imgs/loading.gif
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /calculate-area?height=3&width=4
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /
+DEBUG:root:Handling client request: /css/doremon.css
+DEBUG:root:Handling client request: /imgs/abstract.jpg
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/jquery.min.js
+DEBUG:root:Handling client request: /imgs/favicon.ico
+ERROR:root:Socket Error
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/box.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/submit.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /
+DEBUG:root:Handling client request: /css/doremon.css
+DEBUG:root:Handling client request: /imgs/abstract.jpg
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/jquery.min.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/box.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /js/submit.js
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /calculate-next?num=5
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /imgs/loading.gif
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /calculate-area?height=3&width=4
+DEBUG:root:URI Calc Next has been requested
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
+DEBUG:root:Handling client request: /image?image-name=forbidden.jpg
+DEBUG:root:Handling client request: /image?image-name=forbidden.jpg
+DEBUG:root:Socket connection timed out
+DEBUG:root:Closing connection
