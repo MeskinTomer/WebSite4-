@@ -78,6 +78,13 @@ def get_file_data(file_path):
 
 
 def upload(resource, client_socket, body):
+  """
+  Saves an image to Uploads
+  :param resource: the Uri
+  :param client_socket: The socket of the connected client
+  :param body: the body of the image
+  :return: None
+  """
     try:
         file_name = resource.split('?')[1].split('=')[1]
         file_path = os.path.join(UPLOAD, file_name)
@@ -95,12 +102,23 @@ def upload(resource, client_socket, body):
 
 
 def bad_request(client_socket):
+ """
+ Sends Bad Request message to the client
+ :param client_socket: the socket of the connected client
+ :return: None
+ """
     logging.debug('Bad Request has been activated')
     client_socket.sendall(HTTP_BAD_REQUEST_400)
     return
 
 
 def image_request(uri, client_socket):
+ """
+ Sends the requested uploaded image to the client
+ :param uri: The uri
+ :param client_socket: the socket of the connected client
+ :return: None
+ """
     query_params = uri.split('?')[1]
     name_image = query_params.split('=')[1]
 
@@ -213,6 +231,13 @@ def handle_client_request(method, resource, client_socket):
         client_socket.sendall(image_final)
 
 def handle_post_request(resource, client_socket, client_request):
+ """
+ Check the required resource, generate proper HTTP response and sends to client (POST)
+ :param resource: the uri
+ :param client_socket: the socket of the connected client
+ :param client_request: the whole request of the client
+ :return: None
+ """
     if resource.startswith(URI_UPLOAD):
         # Get the content length from the header - content length
         content_length_match = re.search(rb'Content-Length: (\d+)', client_request)
