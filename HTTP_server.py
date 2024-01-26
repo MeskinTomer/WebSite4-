@@ -31,6 +31,7 @@ URI_IMAGE = '/image'
 # WebRoot paths
 WEBROOT = r'C:\Users\tomer\Desktop\Python_Projects\WebRoot4.0\webroot.zip'
 INDEX = os.path.join(WEBROOT, 'index.html')
+UPLOAD = r'C:\Users\tomer\Desktop\Python_Projects\WebSite4+\webroot.zip\upload'
 
 # Images paths
 ERROR_IMAGE_PATH = os.path.join(os.path.dirname(__file__), 'images', 'error.jpg')
@@ -61,7 +62,7 @@ HTTP_NOT_FOUND_404 = b'HTTP/1.1 404 Not Found\r\n'
 HTTP_INTERNAL_ERROR_500 = b'HTTP/1.1 500 Internal Server Error\r\n'
 HTTP_BAD_REQUEST_400 = b'HTTP/1.1 400 Bad Request\r\n'
 
-logging.basicConfig(filename='WebRoot_Server_log.log', level=logging.DEBUG)
+logging.basicConfig(filename='WebSite_Server_log.log', level=logging.DEBUG)
 
 
 def get_file_data(file_path):
@@ -76,6 +77,22 @@ def get_file_data(file_path):
     return file_data, file_content_len
 
 
+def upload(resource, client_socket, body):
+    try:
+        file_name = resource.split('?')[1].split('=')[1]
+        file_path = os.path.join(UPLOAD, file_name)
+
+        with open(file_path, 'wb') as file:
+            file.write(body)
+
+        ok_response = HTTP_OK_200 + b'\r\nUpload successful'
+        client_socket.sendall(ok_response)
+    except Exception:
+        logging.debug('Error uploading image')
+        bad_request(client_socket)
+    finally:
+        return
+
 
 def bad_request(client_socket):
     logging.debug('Bad Request has been activated')
@@ -83,7 +100,26 @@ def bad_request(client_socket):
     return
 
 
-def handle_client_request(resource, client_socket):
+def image_request(uri, client_socket):
+    query_params = uri.split('?')[1]
+    name_image = query_params.split('=')[1]
+
+    if not name_image:
+        bad_request(client_socket)
+        return
+
+    image_path = os.path.join(UPLOAD, name_image)
+    with open(image_path, 'rb') as image_file:
+        image_data = image_file.read()
+        image_content_length = len(image_data)
+
+    image_content_type_header = HEADER_CONTENT_TYPE + FILE_CONTENT_TYPES.get('jpg', b'image/jpeg').encode() + b'\r\n'
+    image_content_length_header = HEADER_CONTENT_LENGTH + str(image_content_length).encode() + b'\r\n'
+    image_final = HTTP_OK_200 + image_content_type_header + image_content_length_header + b'\r\n' + image_data
+    client_socket.sendall(image_final)
+
+
+def handle_client_request(method, resource, client_socket):
     """
     Check the required resource, generate proper HTTP response and send
     to client
@@ -98,65 +134,69 @@ def handle_client_request(resource, client_socket):
         uri = resource
 
     try:
-        if uri == URI_MOVED:
-            logging.debug('URI Moved has been requested')
-            response = HTTP_TEMP_REDIRECT_302 + b'Location: /index.html\r\n\r\n'
-            client_socket.sendall(response)
-            handle_client_request('/', client_socket)
-            return
-        elif uri == URI_FORBIDDEN:
-            logging.debug('URI Forbidden has been requested')
-            image_data, image_content_len = get_file_data(FORBIDDEN_IMAGE_PATH)
-            image_content_type_header = HEADER_CONTENT_TYPE + FILE_CONTENT_TYPES.get('jpg', b'image/jpeg').encode() + b'\r\n'
-            image_content_len_header = HEADER_CONTENT_LENGTH + str(image_content_len).encode() + b'\r\n'
-            image_final = HTTP_FORBIDDEN_403 + image_content_type_header + image_content_len_header + b'\r\n' + image_data
-            client_socket.sendall(image_final)
-        elif uri == URI_ERROR:
-            logging.debug('URI Error has been requested')
-            image_data, image_content_len = get_file_data(ERROR_IMAGE_PATH)
-            image_content_type_header = HEADER_CONTENT_TYPE + FILE_CONTENT_TYPES.get('jpg', b'image/jpeg').encode() + b'\r\n'
-            image_content_len_header = HEADER_CONTENT_LENGTH + str(image_content_len).encode() + b'\r\n'
-            image_final = HTTP_INTERNAL_ERROR_500 + image_content_type_header + image_content_len_header + b'\r\n' + image_data
-            client_socket.sendall(image_final)
-        elif uri.split('?')[0] == URI_CALC_NEXT:
-            logging.debug('URI Calc Next has been requested')
-            query_params = uri.split('?')[1]
-            if not query_params[4:].isnumeric():
-                bad_request(client_socket)
+        if method == 'GET':
+            if uri == URI_MOVED:
+                logging.debug('URI Moved has been requested')
+                response = HTTP_TEMP_REDIRECT_302 + b'Location: /index.html\r\n\r\n'
+                client_socket.sendall(response)
+                handle_client_request('/', client_socket)
                 return
-            num = int(query_params[4:])
-            data = str(num + 1)
-            data_len = len(data)
-            data_content_type_header = HEADER_CONTENT_TYPE + 'string'.encode() + b'\r\n'
-            data_content_len_header = HEADER_CONTENT_LENGTH + str(data_len).encode() + b'\r\n'
-            message_final = HTTP_OK_200 + data_content_type_header + data_content_len_header + b'\r\n' + data.encode()
-            client_socket.sendall(message_final)
-        elif uri.split('?')[0] == URI_CALC_AREA:
-            logging.debug('URI Calc Next has been requested')
-            query_params = uri.split('?')[1]
-            if not query_params.split('&')[0][7:].isnumeric() or not query_params.split('&')[1][6:].isnumeric():
-                bad_request(client_socket)
+            elif uri == URI_FORBIDDEN:
+                logging.debug('URI Forbidden has been requested')
+                image_data, image_content_len = get_file_data(FORBIDDEN_IMAGE_PATH)
+                image_content_type_header = HEADER_CONTENT_TYPE + FILE_CONTENT_TYPES.get('jpg', b'image/jpeg').encode() + b'\r\n'
+                image_content_len_header = HEADER_CONTENT_LENGTH + str(image_content_len).encode() + b'\r\n'
+                image_final = HTTP_FORBIDDEN_403 + image_content_type_header + image_content_len_header + b'\r\n' + image_data
+                client_socket.sendall(image_final)
+            elif uri == URI_ERROR:
+                logging.debug('URI Error has been requested')
+                image_data, image_content_len = get_file_data(ERROR_IMAGE_PATH)
+                image_content_type_header = HEADER_CONTENT_TYPE + FILE_CONTENT_TYPES.get('jpg', b'image/jpeg').encode() + b'\r\n'
+                image_content_len_header = HEADER_CONTENT_LENGTH + str(image_content_len).encode() + b'\r\n'
+                image_final = HTTP_INTERNAL_ERROR_500 + image_content_type_header + image_content_len_header + b'\r\n' + image_data
+                client_socket.sendall(image_final)
+            elif uri.split('?')[0] == URI_CALC_NEXT:
+                logging.debug('URI Calc Next has been requested')
+                query_params = uri.split('?')[1]
+                if not query_params[4:].isnumeric():
+                    bad_request(client_socket)
+                    return
+                num = int(query_params[4:])
+                data = str(num + 1)
+                data_len = len(data)
+                data_content_type_header = HEADER_CONTENT_TYPE + b'text/plain;charset=utf-8\r\n'
+                data_content_len_header = HEADER_CONTENT_LENGTH + str(data_len).encode() + b'\r\n'
+                message_final = HTTP_OK_200 + data_content_type_header + data_content_len_header + b'\r\n' + data.encode()
+                client_socket.sendall(message_final)
+            elif uri.split('?')[0] == URI_CALC_AREA:
+                logging.debug('URI Calc Next has been requested')
+                query_params = uri.split('?')[1]
+                if not query_params.split('&')[0][7:].isnumeric() or not query_params.split('&')[1][6:].isnumeric():
+                    bad_request(client_socket)
+                    return
+                height = int(query_params.split('&')[0][7:])
+                width = int(query_params.split('&')[1][6:])
+                data = str(height * width / 2.0)
+                data_len = len(data)
+                data_content_type_header = HEADER_CONTENT_TYPE + b'text/plain;charset=utf-8\r\n'
+                data_content_len_header = HEADER_CONTENT_LENGTH + str(data_len).encode() + b'\r\n'
+                message_final = HTTP_OK_200 + data_content_type_header + data_content_len_header + b'\r\n' + data.encode()
+                client_socket.sendall(message_final)
+            elif uri.split('?')[0] == URI_IMAGE:
+                image_request(uri, client_socket)
                 return
-            height = int(query_params.split('&')[0][7:])
-            width = int(query_params.split('&')[1][6:])
-            data = str(height * width / 2.0)
-            data_len = len(data)
-            data_content_type_header = HEADER_CONTENT_TYPE + 'string'.encode() + b'\r\n'
-            data_content_len_header = HEADER_CONTENT_LENGTH + str(data_len).encode() + b'\r\n'
-            message_final = HTTP_OK_200 + data_content_type_header + data_content_len_header + b'\r\n' + data.encode()
-            client_socket.sendall(message_final)
 
-        else:
-            filename = os.path.join(WEBROOT, uri.strip('/'))
-            if os.path.isdir(filename):
-                filename = os.path.join(filename, 'index.html')
-            file_extension = filename.split('.')[-1]
+            else:
+                filename = os.path.join(WEBROOT, uri.strip('/'))
+                if os.path.isdir(filename):
+                    filename = os.path.join(filename, 'index.html')
+                file_extension = filename.split('.')[-1]
 
-            file_data, data_len = get_file_data(filename)
-            content_type_header = HEADER_CONTENT_TYPE + FILE_CONTENT_TYPES.get(file_extension, b'text/plain').encode() + b'\r\n'
-            content_len_header = HEADER_CONTENT_LENGTH + str(data_len).encode() + b'\r\n'
-            final_response = HTTP_OK_200 + content_type_header + content_len_header + b'\r\n' + file_data
-            client_socket.sendall(final_response)
+                file_data, data_len = get_file_data(filename)
+                content_type_header = HEADER_CONTENT_TYPE + FILE_CONTENT_TYPES.get(file_extension, b'text/plain').encode() + b'\r\n'
+                content_len_header = HEADER_CONTENT_LENGTH + str(data_len).encode() + b'\r\n'
+                final_response = HTTP_OK_200 + content_type_header + content_len_header + b'\r\n' + file_data
+                client_socket.sendall(final_response)
     except FileNotFoundError:
         logging.debug('Not Found error occurred')
         image_data, image_content_len = get_file_data(NOT_FOUND__IMAGE_PATH)
@@ -172,7 +212,27 @@ def handle_client_request(resource, client_socket):
         image_final = HTTP_INTERNAL_ERROR_500 + image_content_type_header + image_content_len_header + b'\r\n' + image_data
         client_socket.sendall(image_final)
 
+def handle_post_request(resource, client_socket, client_request):
+    if resource.startswith(URI_UPLOAD):
+        # Get the content length from the header - content length
+        content_length_match = re.search(rb'Content-Length: (\d+)', client_request)
+        if content_length_match:
+            content_length = int(content_length_match.group(1))
+        else:
+            logging.error('Error - Content Length not found in the request')
 
+        body = b''
+        while len(body) < content_length:
+            chunk = client_socket.recv(1)
+            if not chunk:
+                break
+            body += chunk
+
+        if len(body) < content_length:
+            logging.error('Error - Received only part of the body')
+            return
+
+        upload(resource, client_socket, body)
 def validate_http_request(request):
     """
     Check if request is a valid HTTP request and returns TRUE / FALSE and
@@ -193,10 +253,10 @@ def validate_http_request(request):
         method = valid.group(1).decode()
         resource = valid.group(2).decode()
 
-        if method != 'GET':
+        if method != 'GET' and method != 'POST':
             return False, ''
 
-    return True, resource
+    return True, resource, method
 
 
 def handle_client(client_socket):
@@ -216,11 +276,14 @@ def handle_client(client_socket):
             if client_request == '':
                 break
 
-            valid_http, resource = validate_http_request(client_request)
+            valid_http, resource, method = validate_http_request(client_request)
 
             if valid_http:
                 print('Got a valid HTTP request')
-                handle_client_request(resource, client_socket)
+                if method == 'GET':
+                    handle_client_request(method, resource, client_socket)
+                elif method == 'POST':
+                    handle_post_request(resource, client_socket, client_request)
             else:
                 print('Error: Not a valid HTTP request')
                 logging.error('Error - invalid HTTP request')
