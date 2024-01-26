@@ -23,6 +23,10 @@ URI_DEFAULT = '/index.html'
 URI_FORBIDDEN = '/forbidden'
 URI_MOVED = '/moved'
 URI_ERROR = '/error'
+URI_CALC_NEXT = '/calculate-next'
+URI_CALC_AREA = '/calculate-area'
+URI_UPLOAD = '/upload'
+URI_IMAGE = '/image'
 
 # WebRoot paths
 WEBROOT = r'C:\Users\tomer\Desktop\Python_Projects\WebRoot4.0\webroot.zip'
@@ -106,6 +110,32 @@ def handle_client_request(resource, client_socket):
             image_content_len_header = HEADER_CONTENT_LENGTH + str(image_content_len).encode() + b'\r\n'
             image_final = HTTP_INTERNAL_ERROR_500 + image_content_type_header + image_content_len_header + b'\r\n' + image_data
             client_socket.sendall(image_final)
+        elif uri.split('?')[0] == URI_CALC_NEXT:
+            logging.debug('URI Calc Next has been requested')
+            query_params = uri.split('?')[1]
+            if not query_params[4:].isnumeric():
+                # Bad Request
+            num = int(query_params[4:])
+            data = str(num + 1)
+            data_len = len(data)
+            data_content_type_header = HEADER_CONTENT_TYPE + 'string'.encode() + b'\r\n'
+            data_content_len_header = HEADER_CONTENT_LENGTH + str(data_len).encode() + b'\r\n'
+            message_final = HTTP_OK_200 + data_content_type_header + data_content_len_header + b'\r\n' + data.encode()
+            client_socket.sendall(message_final)
+        elif uri.split('?')[0] == URI_CALC_AREA:
+            logging.debug('URI Calc Next has been requested')
+            query_params = uri.split('?')[1]
+            if not query_params.split('&')[0][7:].isnumeric() or not query_params.split('&')[1][6:].isnumeric():
+                # Bad Request
+            height = int(query_params.split('&')[0][7:])
+            width = int(query_params.split('&')[1][6:])
+            data = str(height * width / 2.0)
+            data_len = len(data)
+            data_content_type_header = HEADER_CONTENT_TYPE + 'string'.encode() + b'\r\n'
+            data_content_len_header = HEADER_CONTENT_LENGTH + str(data_len).encode() + b'\r\n'
+            message_final = HTTP_OK_200 + data_content_type_header + data_content_len_header + b'\r\n' + data.encode()
+            client_socket.sendall(message_final)
+
         else:
             filename = os.path.join(WEBROOT, uri.strip('/'))
             if os.path.isdir(filename):
